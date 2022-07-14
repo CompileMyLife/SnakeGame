@@ -1,5 +1,5 @@
 # Snake Game using ncurses library
-TThis is built upon René Hansen's Snake Template found from [rhardih.io](https://rhardih.io/tag/xcode/)
+This is built upon René Hansen's Snake Template found from [rhardih.io](https://rhardih.io/tag/xcode/)
 
 ## Current Status of Snake Game
 
