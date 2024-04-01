@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -std=gnu99 -Wall
+CFLAGS = -std=gnu99 -Wall -ggdb
 LDFLAGS = -lncurses
 
 # Directories
@@ -20,14 +20,16 @@ help:
 	@echo "ClassicSnake:     Game executable"
 	@echo "clean:            Clean up"
 
-ClassicSnake: $(SRC_DIR)/main.c $(OBJ_DIR)/snake_parts.o $(OBJ_DIR)/snake_world.o
+ClassicSnake: $(SRC_DIR)/main.c $(OBJ_DIR)/stack.o $(OBJ_DIR)/snake_parts.o $(OBJ_DIR)/snake_world.o $(INC_DIR)/world.h  
 	$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ $^ $(LDFLAGS)
 
-$(OBJ_DIR)/snake_parts.o: $(SRC_DIR)/snake_parts.c $(INC_DIR)/snake_parts.h 
+$(OBJ_DIR)/snake_parts.o: $(SRC_DIR)/snake_parts.c $(INC_DIR)/snake_parts.h $(INC_DIR)/stack.h $(INC_DIR)/world.h $(INC_DIR)/snake_world.h
 	$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@ $(LDFLAGS)
 
-$(OBJ_DIR)/snake_world.o: $(SRC_DIR)/snake_world.c $(INC_DIR)/snake_world.h $(INC_DIR)/snake_parts.h
+$(OBJ_DIR)/snake_world.o: $(SRC_DIR)/snake_world.c $(INC_DIR)/snake_world.h
 	$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@ $(LDFLAGS)
 
+$(OBJ_DIR)/stack.o: $(SRC_DIR)/stack.c $(INC_DIR)/stack.h
+	$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
 clean:
 	rm ./ClassicSnake $(OBJ_DIR)/*.o 
