@@ -1,11 +1,11 @@
 #include <stdio.h>
 
 #include <ncurses.h>
-
 #include "world.h" 
 #include "stack.h"
 #include "snake_world.h"
 #include "snake_parts.h" 
+
 short playerPoints;
 
 int main(void) {
@@ -43,17 +43,15 @@ int main(void) {
     apple.x = rand() % (WIDTH - 4);
     apple.y = rand() % (HEIGHT - 4);
     
-    int snake_begx = (WIDTH - INIT_SNAKE_LEN) / 2;
+    int snake_begx = (WIDTH - INIT_SNAKE_LEN) / 2 - 1;
     int snake_begy = (HEIGHT - 1) / 2;
 
-    for (int i = 0; i < INIT_SNAKE_LEN; i++) {
-        snake->body[i].x = snake_begx + i;
+    for (int i = INIT_SNAKE_LEN; i > 0; i--) {
+        snake->body[i].x = snake_begx - i - 1;
         snake->body[i].y = snake_begy;
     }
 
     Direction curr_dir = RIGHT;
-
-    playerPoints = 0;
 
     while((ch = getch()) != 'q') {
         
@@ -73,7 +71,7 @@ int main(void) {
                 case KEY_UP:
                 
 
-                    if(snake->body[snake->top - 1].y - 1 == snake->body[snake->top - 2].y){
+                    if(snake->head.y - 1 == snake->body[snake->top].y){
                         break;
                     }
                     curr_dir = UP;
@@ -84,7 +82,7 @@ int main(void) {
                 case KEY_DOWN:
                 
 
-                    if(snake->body[snake->top - 1].y + 1 == snake->body[snake->top - 2].y){
+                    if(snake->head.y + 1 == snake->body[snake->top].y){
                         break;
                     }
                     curr_dir = DOWN;
@@ -95,7 +93,7 @@ int main(void) {
                 case KEY_LEFT:
                
 
-                    if(snake->body[snake->top - 1].x - 1 == snake->body[snake->top - 2].x){
+                    if(snake->head.x - 1 == snake->body[snake->top].x){
                         break;
                     }
                     curr_dir = LEFT;
@@ -106,7 +104,7 @@ int main(void) {
                 case KEY_RIGHT:
                 
 
-                    if(snake->body[snake->top - 1].x + 1 == snake->body[snake->top - 2].x){
+                    if(snake->head.x + 1 == snake->body[snake->top].x){
                         break;
                     }
                     curr_dir = RIGHT;

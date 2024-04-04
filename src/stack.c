@@ -61,8 +61,8 @@ void StackPush(Snake_t* snake, int8_t x, int8_t y) {
         snake->body = realloc(snake->body, snake->capacity * sizeof(Part_t));
     }
     snake->top++;
-    snake->body[++snake->top].x = x;
-    snake->body[++snake->top].y = y;
+    snake->body[snake->top].x = x;
+    snake->body[snake->top].y = y;
 }
 
 // Pop from the Snake Stack

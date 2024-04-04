@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -std=gnu99 -Wall -ggdb
+CFLAGS = -std=gnu99 -Wall #-ggdb
 LDFLAGS = -lncurses
 
 # Directories
