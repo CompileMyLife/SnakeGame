@@ -35,7 +35,7 @@ bool StackIsEmpty(Snake_t* snake);
 void StackPush(Snake_t* snake, int8_t x, int8_t y);
 
 // Pop from the Snake Stack
-Part_t StackPop(Snake_t* snake);
+void StackPop(Snake_t* snake, int8_t popped_x, int8_t popped_y);
 
 // Delete the Snake Stack
 void DeleteStack(Snake_t* snake);

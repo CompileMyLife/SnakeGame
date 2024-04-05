@@ -66,12 +66,15 @@ void StackPush(Snake_t* snake, int8_t x, int8_t y) {
 }
 
 // Pop from the Snake Stack
-Part_t StackPop(Snake_t* snake) {
-       if (StackIsEmpty(snake)) return;
+void StackPop(Snake_t* snake, int8_t popped_x, int8_t popped_y) {
+       if (StackIsEmpty(snake)) 
+           return;
 
        else {
            snake->top--;
-           return (snake->body[snake->top+1]);
+           popped_x = snake->body[snake->top + 1].x;
+           popped_y = snake->body[snake->top + 1].y;
+           return;
        }
 }
 
