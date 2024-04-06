@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -std=gnu99 -Wall #-ggdb
+CFLAGS = -std=gnu99 -Wall -ggdb
 LDFLAGS = -lncurses
 
 # Directories
@@ -32,4 +32,4 @@ $(OBJ_DIR)/snake_world.o: $(SRC_DIR)/snake_world.c $(INC_DIR)/snake_world.h
 $(OBJ_DIR)/stack.o: $(SRC_DIR)/stack.c $(INC_DIR)/stack.h
 	$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
 clean:
-	rm ./ClassicSnake $(OBJ_DIR)/*.o 
+	rm -rf ./ClassicSnake ./ClassicSnake.dSYM/ $(OBJ_DIR)/*.o 
