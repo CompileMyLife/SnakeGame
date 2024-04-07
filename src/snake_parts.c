@@ -1,5 +1,5 @@
 #include "snake_parts.h"
-
+#include <stdio.h>
 // Move the apple randomly within boundaries of width and height
 void mv_apple(Part_t* apple, short player_points) {
     apple->x = rand() % (WIDTH - 4);
@@ -10,6 +10,8 @@ void mv_apple(Part_t* apple, short player_points) {
 
 // Move the snake with respect to the direction
 int8_t mv_snake(WINDOW *win, Direction curr_dir, Snake_t* snake, Part_t* apple, short player_points) {
+    FILE* fp = fopen("./snake_location.txt", "a");
+
     wclear(win);
 
     mvwaddch(win, apple->y, apple->x, 'o');
@@ -17,19 +19,22 @@ int8_t mv_snake(WINDOW *win, Direction curr_dir, Snake_t* snake, Part_t* apple, 
     snake->body[snake->top].x = snake->head.x;
     snake->body[snake->top].y = snake->head.y;
 
-    if (snake->top != 0) {
-        for (int i = 0; i < snake->top - 1; i++) {
+    if (StackCapacity(snake) != 1) {
+        for (int i = 0; i < snake->top; i++) {
             snake->body[i].x = snake->body[i + 1].x;
             snake->body[i].y = snake->body[i + 1].y;
             mvwaddch(win, snake->body[i].y, snake->body[i].x, '*');
+            fprintf(fp, "snake->body[%d] = {%d, %d}\n", i, snake->body[i].x, snake->body[i].y);
         }
-    }
-
-    else { 
+        fprintf(fp, "snake->body[%d] = {%d, %d}\n", snake->top, snake->body[snake->top].x, snake->body[snake->top].y);
         mvwaddch(win, snake->body[snake->top].y, snake->body[snake->top].x, '*');
     }
 
-    mvwaddch(win, snake->head.y, snake->head.x, '@');
+    else { 
+        fprintf(fp, "snake->body[%d] = {%d, %d}\n", snake->top, snake->body[snake->top].x, snake->body[snake->top].y);
+        mvwaddch(win, snake->body[snake->top].y, snake->body[snake->top].x, '*');
+    }
+
     int8_t curr_hx = snake->head.x;
     int8_t curr_hy = snake->head.y; 
 
@@ -73,13 +78,22 @@ int8_t mv_snake(WINDOW *win, Direction curr_dir, Snake_t* snake, Part_t* apple, 
 
     if ((snake->head.x == apple->x) && (snake->head.y == apple->y)) {
         mv_apple(apple, player_points);
-        StackPush(snake, snake->head.x, snake->head.y);  
+        StackPush(snake, snake->body[snake->top].x, snake->body[snake->top].y);  
+        for (int i = 0; i < snake->top; i++) {
+            snake->body[i].x = snake->body[i + 1].x;
+            snake->body[i].y = snake->body[i + 1].y;
+            mvwaddch(win, snake->body[i].y, snake->body[i].x, '*');
+        }
+        mvwaddch(win, snake->body[snake->top].y, snake->body[snake->top].x, '*');
+
+        fprintf(fp, "Finished pushing {%d, %d}\n", snake->body[snake->top].x, snake->body[snake->top].y);
+        fclose(fp);
     }
     
-    //for (int i = 0; i < snake->top + 1; i++) {
-     //   mvwaddch(win, snake->body[i].y, snake->body[i].x, '*');
-    //}
-
+    
+    mvwaddch(win, snake->head.y, snake->head.x, '@');
+    
+    fclose(fp);
     box(win, 0, 0);
 
     wrefresh(win);
