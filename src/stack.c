@@ -1,5 +1,5 @@
 #include "stack.h"
-
+#include <stdio.h>
 // Create the Snake Stack
 Snake_t* CreateStack(uint8_t capacity, int8_t head_x_pos, int8_t head_y_pos) {
     Snake_t* snake = (Snake_t*) malloc(sizeof(Snake_t));
@@ -56,13 +56,21 @@ bool StackIsEmpty(Snake_t* snake) {
 
 // Push onto the Snake Stack with coordinates
 void StackPush(Snake_t* snake, int8_t x, int8_t y) {
+    FILE* fp = fopen("./snake_location.txt", "a");
+    fprintf(fp, "StackIsFull(snake) = %d \n", StackIsFull(snake));
     if (StackIsFull(snake)) {
         snake->capacity++;
+        fprintf(fp, "new snake->capacity = %d\n", snake->capacity);
         snake->body = realloc(snake->body, snake->capacity * sizeof(Part_t));
     }
     snake->top++;
+    fprintf(fp,"new snake->top = %d\n", snake->top);
     snake->body[snake->top].x = x;
     snake->body[snake->top].y = y;
+
+    fprintf(fp,"new snake->body[%d].x = %d\n", snake->top, snake->body[snake->top].x);
+    fprintf(fp,"new snake->body[%d].y = %d\n", snake->top, snake->body[snake->top].y);
+    fclose(fp);
 }
 
 // Pop from the Snake Stack
