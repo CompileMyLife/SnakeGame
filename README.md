@@ -11,10 +11,10 @@ can use `W, A, S, D` or the arrow keys for going up, down, left, and right.
 ## System and Software Requirements
 The source code was built and tested on `Ubuntu 20.04.06 LTS` and `macOS
 Catalina 10.15.7` along with the following tools:
-    * gcc 9.4.0      / clang 12.0.0
-    * GNU Make 4.2.1 / GNU Make 3.8.1
-    * glibc 2.31
-    * libncurses5-dev and libncursesw5-dev
+* gcc 9.4.0      / clang 12.0.0
+* GNU Make 4.2.1 / GNU Make 3.8.1
+* glibc 2.31
+* libncurses5-dev and libncursesw5-dev
 
 ## Source:
  - `include/`:
