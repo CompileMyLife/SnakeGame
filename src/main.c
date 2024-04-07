@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include <ncurses.h>
+
 #include "world.h" 
 #include "stack.h"
 #include "snake_world.h"
@@ -46,8 +47,8 @@ int main(void) {
     int snake_begx = (WIDTH - INIT_SNAKE_LEN) / 2 - 1;
     int snake_begy = (HEIGHT - 1) / 2;
 
-    for (int i = INIT_SNAKE_LEN; i > 0; i--) {
-        snake->body[i].x = snake_begx - i - 1;
+    for (int i = 0; i < snake->top + 1; i++) {
+        snake->body[i].x = snake_begx +i - 1;
         snake->body[i].y = snake_begy;
     }
 
