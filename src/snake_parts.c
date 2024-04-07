@@ -24,14 +24,17 @@ int8_t mv_snake(WINDOW *win, Direction curr_dir, Snake_t* snake, Part_t* apple, 
             snake->body[i].x = snake->body[i + 1].x;
             snake->body[i].y = snake->body[i + 1].y;
             mvwaddch(win, snake->body[i].y, snake->body[i].x, '*');
-            fprintf(fp, "snake->body[%d] = {%d, %d}\n", i, snake->body[i].x, snake->body[i].y);
+            fprintf(fp, "snake->body[%d] = {%d, %d}\n", 
+                    i, snake->body[i].x, snake->body[i].y);
         }
-        fprintf(fp, "snake->body[%d] = {%d, %d}\n", snake->top, snake->body[snake->top].x, snake->body[snake->top].y);
+        fprintf(fp, "snake->body[%d] = {%d, %d}\n", 
+                snake->top, snake->body[snake->top].x, snake->body[snake->top].y);
         mvwaddch(win, snake->body[snake->top].y, snake->body[snake->top].x, '*');
     }
 
     else { 
-        fprintf(fp, "snake->body[%d] = {%d, %d}\n", snake->top, snake->body[snake->top].x, snake->body[snake->top].y);
+        fprintf(fp, "snake->body[%d] = {%d, %d}\n", 
+                snake->top, snake->body[snake->top].x, snake->body[snake->top].y);
         mvwaddch(win, snake->body[snake->top].y, snake->body[snake->top].x, '*');
     }
 
@@ -86,8 +89,8 @@ int8_t mv_snake(WINDOW *win, Direction curr_dir, Snake_t* snake, Part_t* apple, 
         }
         mvwaddch(win, snake->body[snake->top].y, snake->body[snake->top].x, '*');
 
-        fprintf(fp, "Finished pushing {%d, %d}\n", snake->body[snake->top].x, snake->body[snake->top].y);
-        fclose(fp);
+        fprintf(fp, "Finished pushing {%d, %d}\n", 
+                snake->body[snake->top].x, snake->body[snake->top].y);
     }
     
     
